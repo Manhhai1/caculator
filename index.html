@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./script.js">
+    </script>
+    <title>Document</title>
+
+
+</head>
+
+<body>
+    <input type="text" id="input" placeholder="...enter expression">
+    <input type="text" id="result">
+    <button onclick="count()">Caculate</button>
+</body>
+<script>
+
+    function count() {
+        let arr = []
+        let k = '254*65+4234/5488+445-(145+(5478-547+875*875))+89788'
+        let b = new Caculator(document.getElementById('input').value, arr)
+        let a = b.arrString().check().caculate_Parentheses().caculate_Mul_Div().caculate_Plus_Sub().ar[0]
+        console.log(a)
+        document.getElementById('result').value = a
+    }
+</script>
+
+</html>
