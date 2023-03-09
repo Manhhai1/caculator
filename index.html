@@ -5,27 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./script.js">
-    </script>
+    <script src="./script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 
 
 </head>
 
 <body>
-    <input type="text" id="input" placeholder="...enter expression">
-    <input type="text" id="result">
-    <button onclick="count()">Caculate</button>
+    <div class="container">
+        <p> Example :254*65+4234/5488+445-(145+(5478-547+875*875))+89788+545454/57745+544548*23423-(314+544)*445</p>
+        <div class="input-group mb-3">
+
+            <input id="input" type="text" class="form-control" placeholder="Input Expression..."
+                aria-describedby="button-addon2">
+        </div>
+        <div id="result"></div>
+        <h5></h5>
+        <button type="button" onclick="count()" class="btn btn-dark">Caculate</button>
+    </div>
 </body>
 <script>
 
     function count() {
         let arr = []
-        let k = '254*65+4234/5488+445-(145+(5478-547+875*875))+89788'
         let b = new Caculator(document.getElementById('input').value, arr)
-        let a = b.arrString().check().caculate_Parentheses().caculate_Mul_Div().caculate_Plus_Sub().ar[0]
+        if (b.arrString().check() && document.getElementById('input').value) {
+            let a = b.caculate_Parentheses().caculate_Mul_Div().caculate_Plus_Sub().ar[0]
+            document.getElementById('result').innerHTML = a
+        }
         console.log(a)
-        document.getElementById('result').value = a
+
     }
 </script>
 

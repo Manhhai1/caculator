@@ -1,0 +1,39 @@
+.container{
+    width: 80%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+
+}
+body{
+    width: 100%!important;
+    height: 100%!important;
+    background-color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#result{
+    font-weight: 700;
+    font-size: 1.3em;
+    width: 80%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background: white;
+}
+button{
+    height: 50px;
+    width: 200px;;
+    font-weight: 700;
+
+}
+p{
+    font-weight: 700;
+}

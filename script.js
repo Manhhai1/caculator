@@ -12,6 +12,7 @@ class Caculator {
             if (a[i] == '(') open += 1
             if (a[i] == ')') close += 1
         }
+        if (this.ar[this.ar.length - 1] == ')' || this.ar[this.ar.length - 1] == '(' || this.ar[this.ar.length - 1] == '*' || this.ar[this.ar.length - 1] == '+' || this.ar[this.ar.length - 1] == '-' || this.ar[this.ar.length - 1] == '/') return false
         if (open != close) return false
         return this;
 
@@ -47,34 +48,34 @@ class Caculator {
     }
     caculate_Parentheses() {
         let a
-        let b
+        let b = 0
         let j = 0
         while (this.ar.find(item => item === '(' || item === ')')) {
 
             for (let i = 0; i < this.ar.length; i++) {
                 if (this.ar[i] == '(' && this.ar[i - 1] && this.ar[i + 1]) {
                     a = i
+                    console.log('a', a)
 
                 }
                 if (this.ar[i] == ')' && this.ar[i - 1] && this.ar[i + 1]) {
                     b = i
+                    if (a != 0 && b != 0 && b > a) {
+                        console.log('b', b)
+                        let arr = this.ar.slice(a + 1, b);
+                        console.log(arr.length)
+                        this.ar.splice(a, b - a + 1)
+                        const cl = new Caculator(this.a, arr)
+                        cl.check().caculate_Mul_Div().caculate_Plus_Sub()
+                        console.log(this.ar)
+                        if (cl.ar[0]) {
+                            this.ar.splice(a, 0, cl.ar[0].toString())
+                        }
+                        console.log(this.ar)
+                    }
+                    i = 0
                 }
-
             }
-            let arr = this.ar.slice(a + 1, b - 1 + j);
-
-            const cl = new Caculator(this.a, arr)
-            cl.check().caculate_Mul_Div().caculate_Plus_Sub()
-
-            // console.log(arr)
-            this.ar.splice(a, b - a + j)
-            // console.log(this.ar)
-            if (cl.ar[0]) {
-                this.ar.splice(a, 0, cl.ar[0].toString())
-            }
-            console.log(this.ar)
-            j++
-
         }
         console.log(this.ar)
         return this
@@ -108,19 +109,35 @@ class Caculator {
         }
         while (this.ar.find(item => item == '+' || item == '-')) {
             for (let i = 0; i < this.ar.length; i++) {
-                if (this.ar[i] == '+' && this.ar[i - 1] && this.ar[i + 1]) {
-
-                    let kq = (+this.ar[i - 1] + +this.ar[i + 1])
-                    this.ar.splice(i - 1, 3)
-                    this.ar.splice(i - 1, 0, kq);
-                    console.log(this.ar)
-                }
                 if (this.ar[i] == '-' && this.ar[i - 1] && this.ar[i + 1]) {
 
-                    let kq = (this.ar[i - 1] - this.ar[i + 1])
-                    this.ar.splice(i - 1, 3)
-                    this.ar.splice(i - 1, 0, kq);
-                    console.log(this.ar)
+
+                    if (this.ar[i - 2] && this.ar[i - 2] == '-') {
+                        let kq = (+this.ar[i - 1] + +this.ar[i + 1])
+                        this.ar.splice(i - 1, 3)
+                        this.ar.splice(i - 1, 0, kq);
+                        console.log(this.ar)
+                    }
+                    else {
+                        let kq = (+this.ar[i - 1] - +this.ar[i + 1])
+                        this.ar.splice(i - 1, 3)
+                        this.ar.splice(i - 1, 0, kq);
+                        console.log(this.ar)
+                    }
+                }
+                if (this.ar[i] == '+' && this.ar[i - 1] && this.ar[i + 1]) {
+                    if (this.ar[i - 2] && this.ar[i - 2] == '-') {
+                        let kq = (+this.ar[i - 1] - +this.ar[i + 1])
+                        this.ar.splice(i - 1, 3)
+                        this.ar.splice(i - 1, 0, kq);
+                        console.log(this.ar)
+                    }
+                    else {
+                        let kq = (+this.ar[i - 1] + +this.ar[i + 1])
+                        this.ar.splice(i - 1, 3)
+                        this.ar.splice(i - 1, 0, kq);
+                        console.log(this.ar)
+                    }
                 }
 
             }
@@ -128,3 +145,7 @@ class Caculator {
         return this
     }
 }
+let a = '254*65+4234/5488+445-(145+(5478-547+875*875))+89788'
+let ar = []
+let b = new Caculator(a, ar)
+console.log(b.arrString().check().caculate_Parentheses().caculate_Mul_Div().caculate_Plus_Sub())
